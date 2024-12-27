@@ -364,18 +364,25 @@
             updateCounter('purple');
         }
 
-        // Initialize counters
+        // Initialize counters from localStorage or set to 0 if not exists
         const counters = {
-            purple: 0,
-            berry: 0,
-            black: 0,
-            teal: 0,
-            offwhite: 0
+            purple: parseInt(localStorage.getItem('purple-count') || 0),
+            berry: parseInt(localStorage.getItem('berry-count') || 0),
+            black: parseInt(localStorage.getItem('black-count') || 0),
+            teal: parseInt(localStorage.getItem('teal-count') || 0),
+            offwhite: parseInt(localStorage.getItem('offwhite-count') || 0)
         };
+
+        // Display initial counts
+        for (let type in counters) {
+            document.getElementById(`${type}-count`).textContent = counters[type];
+        }
 
         function updateCounter(buttonType) {
             counters[buttonType]++;
             document.getElementById(`${buttonType}-count`).textContent = counters[buttonType];
+            // Save to localStorage
+            localStorage.setItem(`${buttonType}-count`, counters[buttonType]);
         }
 
         function toggleSecret() {
