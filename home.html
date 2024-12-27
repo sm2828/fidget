@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>click..</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 2rem;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background-color: #FBFAF9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            box-sizing: border-box;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        h1 {
+            color: #200052;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+
+        .button {
+            width: 100%;
+            aspect-ratio: 1;
+            margin: 0;
+            padding: 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #FFFFFF;
+            cursor: pointer;
+            transition: all 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            user-select: none;
+            touch-action: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .button:active {
+            transform: scale(0.95);
+        }
+
+        .purple { background-color: #836EF9; }
+        .blue { background-color: #200052; }
+        .berry { background-color: #A0055D; }
+        .black { background-color: #0E100F; }
+        .green { background-color: #2E7D32; }
+        .teal { background-color: #FBFAF9; color: #200052; }
+
+        .offwhite {
+            background-color: #FBFAF9;
+            color: #200052;
+            border: 2px solid #200052;
+        }
+
+        .fidget-container {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 1.5rem;
+            max-width: 800px;
+            width: 100%;
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            margin: 0 auto;
+        }
+
+        @media (max-width: 600px) {
+            .fidget-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .counter-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .counter-container {
+            margin-top: 2rem;
+            width: 100%;
+            max-width: 800px;
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            margin: 2rem auto 0;
+        }
+
+        .counter-container h2 {
+            color: #200052;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .counter-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+        }
+
+        .counter {
+            padding: 1rem;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            aspect-ratio: 1;
+            margin: 0;
+        }
+
+        .counter-label {
+            font-size: 0.7rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .counter-value {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .purple-counter { background-color: #836EF9; }
+        .blue-counter { background-color: #200052; }
+        .berry-counter { background-color: #A0055D; }
+        .black-counter { background-color: #0E100F; }
+        .teal-counter { background-color: #FBFAF9; color: #200052; }
+
+        .offwhite-counter { 
+            background-color: #200052;
+        }
+
+        .button img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .corner-popup {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #200052;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .corner-popup:hover {
+            transform: scale(1.1);
+        }
+
+        .secret-button {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            padding: 15px;
+            background-color: #A0055D;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .secret-button.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body>
+    <audio id="boomSound" src="boom.mp3"></audio>
+    <div class="corner-popup" onclick="toggleSecret()">💪🏻</div>
+    <button class="secret-button" onclick="playBoom()">BOOM!</button>
+    <h1>click..</h1>
+    <div class="fidget-container">
+        <button class="button purple" onclick="showConfetti()"><img src="nadpray.png" alt="Sussy"></button>
+        <button class="button berry" onclick="changeColor(this)"><img src="bone.png" alt="Sussy"></button>
+        <button class="button black" onclick="shrinkGrow(this)"><img src="sussy.png" alt="Sussy"></button>
+        <button class="button teal" onclick="flip(this)"><img src="keonegg.png" alt="Keonegg"></button>
+        <button class="button offwhite" onclick="toggleBackground()"><img src="nadbulb.png" alt="Sussy"></button>
+    </div>
+
+    <div class="counter-container">
+        <h2>counter</h2>
+        <div class="counter-grid">
+            <div class="counter purple-counter">
+                <span class="counter-label">Nadpray</span>
+                <span class="counter-value" id="purple-count">0</span>
+            </div>
+            <div class="counter berry-counter">
+                <span class="counter-label">Rave</span>
+                <span class="counter-value" id="berry-count">0</span>
+            </div>
+            <div class="counter black-counter">
+                <span class="counter-label">Sussy</span>
+                <span class="counter-value" id="black-count">0</span>
+            </div>
+            <div class="counter teal-counter">
+                <span class="counter-label">Keonegg</span>
+                <span class="counter-value" id="teal-count">0</span>
+            </div>
+            <div class="counter offwhite-counter">
+                <span class="counter-label">Nadbulb</span>
+                <span class="counter-value" id="offwhite-count">0</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showAlert(message) {
+            alert(message);
+        }
+
+        function rotateButton(button) {
+            button.style.transition = "transform 0.5s";
+            button.style.transform = "rotate(360deg)";
+            setTimeout(() => button.style.transform = "", 500);
+        }
+
+        function changeColor(button) {
+            const colors = ["#836EF9", "#200052", "#A0055D", "#FBFAF9", "#0E100F"];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            button.style.backgroundColor = randomColor;
+            button.style.boxShadow = `0 0 20px ${randomColor}`;
+            document.getElementById('berry-count').parentElement.style.backgroundColor = randomColor;
+            updateCounter('berry');
+        }
+
+        function shrinkGrow(button) {
+            button.style.transition = "transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+            button.style.transform = "scale(2.0)";
+            setTimeout(() => {
+                button.style.transform = "scale(1)";
+                updateCounter('black');
+            }, 300);
+        }
+
+        function shake(button) {
+            button.style.animation = "shake 0.5s ease-in-out";
+            button.addEventListener('animationend', () => {
+                button.style.animation = '';
+            });
+        }
+
+        function flip(button) {
+            button.style.transition = "transform 0.15s ease";
+            const isHorizontal = button.getAttribute('data-flip') === 'horizontal';
+            if (isHorizontal) {
+                button.style.transform = "perspective(400px) rotateX(180deg)";
+                button.setAttribute('data-flip', 'vertical');
+            } else {
+                button.style.transform = "perspective(400px) rotateY(180deg)";
+                button.setAttribute('data-flip', 'horizontal');
+            }
+            setTimeout(() => {
+                button.style.transform = "";
+                updateCounter('teal');
+            }, 150);
+        }
+
+        function toggleBackground() {
+            let body = document.body;
+            let title = document.querySelector('h1');
+            if (body.style.backgroundColor === "rgb(14, 16, 15)") { // Monad Black
+                body.style.backgroundColor = "#FBFAF9"; // Off-white
+                body.style.color = "#200052";
+                title.style.color = "#200052";
+            } else {
+                body.style.backgroundColor = "#0E100F"; // Monad Black
+                body.style.color = "#FBFAF9";
+                title.style.color = "#FBFAF9";
+            }
+            updateCounter('offwhite');
+        }
+
+        function createConfetti() {
+            const colors = ['#836EF9', '#200052', '#A0055D', '#FBFAF9'];
+            const confetti = document.createElement('div');
+            const size = Math.random() * 10 + 5;
+            
+            // Randomly decide between color dot or logo
+            if (Math.random() > 0.5) {
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.borderRadius = '50%';
+            } else {
+                const img = document.createElement('img');
+                img.src = 'logo.png';
+                img.style.width = `${size}px`;
+                img.style.height = `${size}px`;
+                confetti.appendChild(img);
+            }
+            
+            confetti.style.position = 'fixed';
+            confetti.style.left = `${Math.random() * 100}vw`;
+            confetti.style.top = '-20px';
+            confetti.style.zIndex = '1000';
+            
+            return confetti;
+        }
+
+        function showConfetti() {
+            for (let i = 0; i < 100; i++) {
+                const confetti = createConfetti();
+                document.body.appendChild(confetti);
+                
+                const animation = confetti.animate([
+                    {
+                        transform: `translate(0, 0) rotate(0deg)`,
+                        opacity: 1
+                    },
+                    {
+                        transform: `translate(${Math.random() * 200 - 100}px, ${window.innerHeight + 20}px) rotate(${Math.random() * 720}deg)`,
+                        opacity: 0
+                    }
+                ], {
+                    duration: Math.random() * 2000 + 1500,
+                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                });
+                
+                animation.onfinish = () => confetti.remove();
+            }
+            updateCounter('purple');
+        }
+
+        // Initialize counters
+        const counters = {
+            purple: 0,
+            berry: 0,
+            black: 0,
+            teal: 0,
+            offwhite: 0
+        };
+
+        function updateCounter(buttonType) {
+            counters[buttonType]++;
+            document.getElementById(`${buttonType}-count`).textContent = counters[buttonType];
+        }
+
+        function toggleSecret() {
+            const secretButton = document.querySelector('.secret-button');
+            secretButton.classList.toggle('show');
+        }
+
+        function playBoom() {
+            const sound = document.getElementById('boomSound');
+            sound.currentTime = 0; // Reset sound to start
+            sound.play();
+            
+            // Add a little animation when playing the sound
+            const button = document.querySelector('.secret-button');
+            button.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                button.style.transform = 'scale(1)';
+            }, 200);
+        }
+    </script>
+
+    <style>
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</body>
+</html>
