@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>click..</title>
+    <link rel="icon" type="image/png" href="head.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -91,11 +92,94 @@
         }
 
         @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
             .fidget-container {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+                padding: 1rem;
             }
+
+            .counter-container {
+                padding: 1rem;
+                margin-top: 1rem;
+            }
+
             .counter-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .button {
+                min-height: 120px;
+            }
+
+            .counter {
+                padding: 0.75rem;
+            }
+
+            .counter-label {
+                font-size: 0.65rem;
+            }
+
+            .corner-popup {
+                bottom: 10px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+            }
+
+            .secret-button {
+                bottom: 60px;
+                right: 10px;
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (hover: none) {
+            .button:hover {
+                transform: none;
+            }
+
+            .button:active {
+                transform: scale(0.95);
+            }
+
+            .button {
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
+            }
+        }
+
+        @media (max-width: 900px) and (orientation: landscape) {
+            .fidget-container {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 0.75rem;
+            }
+
+            .counter-grid {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 0.75rem;
+            }
+
+            .button {
+                min-height: 80px;
+            }
+
+            body {
+                padding: 0.5rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+                margin: 0.5rem 0;
             }
         }
 
@@ -205,6 +289,30 @@
             transform: translateY(0);
             pointer-events: auto;
         }
+
+        .x-link {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            color: #200052;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .x-link:hover {
+            transform: scale(1.1);
+        }
+
+        body.dark .x-link {
+            color: #FBFAF9;
+        }
+
+        @media (max-width: 600px) {
+            .x-link {
+                bottom: 10px;
+                left: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -246,6 +354,12 @@
         </div>
     </div>
 
+    <a href="https://x.com/monadbull" target="_blank" class="x-link">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+    </a>
+
     <script>
         function showAlert(message) {
             alert(message);
@@ -258,15 +372,27 @@
         }
 
         function changeColor(button) {
+            playClickSound4();
             const colors = ["#836EF9", "#200052", "#A0055D", "#FBFAF9", "#0E100F"];
             const randomColor = colors[Math.floor(Math.random() * colors.length)];
             button.style.backgroundColor = randomColor;
             button.style.boxShadow = `0 0 20px ${randomColor}`;
-            document.getElementById('berry-count').parentElement.style.backgroundColor = randomColor;
+            
+            const counterElement = document.getElementById('berry-count').parentElement;
+            counterElement.style.backgroundColor = randomColor;
+            
+            // Change text color based on background color
+            if (randomColor === "#FBFAF9") {
+                counterElement.style.color = "#200052";
+            } else {
+                counterElement.style.color = "#FFFFFF";
+            }
+            
             updateCounter('berry');
         }
 
         function shrinkGrow(button) {
+            playClickSound();
             button.style.transition = "transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
             button.style.transform = "scale(2.0)";
             setTimeout(() => {
@@ -283,6 +409,7 @@
         }
 
         function flip(button) {
+            playClickSound2();
             button.style.transition = "transform 0.15s ease";
             const isHorizontal = button.getAttribute('data-flip') === 'horizontal';
             if (isHorizontal) {
@@ -299,16 +426,27 @@
         }
 
         function toggleBackground() {
+            playClickSound3();
             let body = document.body;
             let title = document.querySelector('h1');
+            let xLink = document.querySelector('.x-link');
+            let cornerPopup = document.querySelector('.corner-popup');
+
             if (body.style.backgroundColor === "rgb(14, 16, 15)") { // Monad Black
                 body.style.backgroundColor = "#FBFAF9"; // Off-white
                 body.style.color = "#200052";
                 title.style.color = "#200052";
+                // Reset X logo and corner popup to original colors
+                xLink.style.color = "#200052";
+                cornerPopup.style.backgroundColor = "#200052";
             } else {
                 body.style.backgroundColor = "#0E100F"; // Monad Black
                 body.style.color = "#FBFAF9";
                 title.style.color = "#FBFAF9";
+                // Change X logo and corner popup to off-white
+                xLink.style.color = "#FBFAF9";
+                cornerPopup.style.backgroundColor = "#FBFAF9";
+                cornerPopup.style.color = "#200052"; // Make emoji visible on white background
             }
             updateCounter('offwhite');
         }
@@ -361,6 +499,7 @@
                 
                 animation.onfinish = () => confetti.remove();
             }
+            playClickSound5();
             updateCounter('purple');
         }
 
@@ -402,6 +541,64 @@
                 button.style.transform = 'scale(1)';
             }, 200);
         }
+
+        function playClickSound() {
+            const sound = new Audio('soft.mp3');
+            sound.volume = 0.3; // Optional: reduce volume since multiple sounds might play
+            sound.play();
+            
+            // Clean up the audio element after it finishes playing
+            sound.onended = function() {
+                sound.remove();
+            };
+        }
+
+        function playClickSound2() {
+            const sound = new Audio('servant.mp3');
+            sound.volume = 0.3; // Optional: reduce volume since multiple sounds might play
+            sound.play();
+            
+            // Clean up the audio element after it finishes playing
+            sound.onended = function() {
+                sound.remove();
+            };
+        }
+
+        function playClickSound3() {
+            const sound = new Audio('ding.mp3');
+            sound.volume = 0.3; // Optional: reduce volume since multiple sounds might play
+            sound.play();
+            
+            // Clean up the audio element after it finishes playing
+            sound.onended = function() {
+                sound.remove();
+            };
+        }
+
+        function playClickSound4() {
+            const sound = new Audio('raver.mp3');
+            sound.volume = 0.3; // Optional: reduce volume since multiple sounds might play
+            sound.play();
+            
+            // Clean up the audio element after it finishes playing
+            sound.onended = function() {
+                sound.remove();
+            };
+        }
+
+        function playClickSound5() {
+            const sound = new Audio('pop.mp3');
+            sound.volume = 0.3; // Optional: reduce volume since multiple sounds might play
+            sound.play();
+            
+            // Clean up the audio element after it finishes playing
+            sound.onended = function() {
+                sound.remove();
+            };
+        }
+
+
+
     </script>
 
     <style>
