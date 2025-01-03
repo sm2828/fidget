@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +25,9 @@
             box-sizing: border-box;
         }
 
-        *, *:before, *:after {
+        *,
+        *:before,
+        *:after {
             box-sizing: inherit;
         }
 
@@ -65,12 +68,30 @@
             transform: scale(0.95);
         }
 
-        .purple { background-color: #836EF9; }
-        .blue { background-color: #200052; }
-        .berry { background-color: #A0055D; }
-        .black { background-color: #0E100F; }
-        .green { background-color: #2E7D32; }
-        .teal { background-color: #FBFAF9; color: #200052; }
+        .purple {
+            background-color: #836EF9;
+        }
+
+        .blue {
+            background-color: #200052;
+        }
+
+        .berry {
+            background-color: #A0055D;
+        }
+
+        .black {
+            background-color: #0E100F;
+        }
+
+        .green {
+            background-color: #2E7D32;
+        }
+
+        .teal {
+            background-color: #FBFAF9;
+            color: #200052;
+        }
 
         .offwhite {
             background-color: #FBFAF9;
@@ -154,7 +175,7 @@
             }
 
             .button {
-                -webkit-tap-highlight-color: rgba(0,0,0,0);
+                -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
             }
         }
 
@@ -229,13 +250,28 @@
             font-weight: bold;
         }
 
-        .purple-counter { background-color: #836EF9; }
-        .blue-counter { background-color: #200052; }
-        .berry-counter { background-color: #A0055D; }
-        .black-counter { background-color: #0E100F; }
-        .teal-counter { background-color: #FBFAF9; color: #200052; }
+        .purple-counter {
+            background-color: #836EF9;
+        }
 
-        .offwhite-counter { 
+        .blue-counter {
+            background-color: #200052;
+        }
+
+        .berry-counter {
+            background-color: #A0055D;
+        }
+
+        .black-counter {
+            background-color: #0E100F;
+        }
+
+        .teal-counter {
+            background-color: #FBFAF9;
+            color: #200052;
+        }
+
+        .offwhite-counter {
             background-color: #200052;
         }
 
@@ -313,11 +349,156 @@
                 left: 10px;
             }
         }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        #levelCounter {
+            font-size: 1.5rem;
+            color: #200052;
+            margin: 1rem 0;
+            font-weight: bold;
+        }
+
+        #startButton {
+            background-color: #836EF9;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin: 1rem 0;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        #startButton:hover {
+            transform: scale(1.05);
+            background-color: #6a4fe0;
+        }
+
+        .button.active {
+            transform: scale(1.2);
+            box-shadow: 0 0 20px rgba(131, 110, 249, 0.5);
+        }
+
+        .hint-button {
+            position: fixed;
+            bottom: 20px;
+            right: 80px;
+            width: 50px;
+            height: 50px;
+            background-color: #836EF9;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 1.5rem;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .hint-button:hover {
+            transform: scale(1.1);
+            background-color: #6a4fe0;
+        }
+
+        .hint-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #FBFAF9;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+            z-index: 1001;
+            max-width: 90%;
+            width: 400px;
+        }
+
+        .hint-modal.show {
+            display: block;
+        }
+
+        .hint-modal h3 {
+            color: #200052;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .hint-modal p {
+            color: #200052;
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .hint-modal button {
+            background-color: #836EF9;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .hint-modal button:hover {
+            background-color: #6a4fe0;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .modal-overlay.show {
+            display: block;
+        }
     </style>
 </head>
+
 <body>
     <audio id="boomSound" src="boom.mp3"></audio>
     <div class="corner-popup" onclick="toggleSecret()">💪🏻</div>
+    <button class="hint-button" onclick="showHint()">?</button>
+    <div class="modal-overlay" onclick="hideHint()"></div>
+    <div class="hint-modal">
+        <h3> do you have molandak memory ? </h3>
+        <p>1. start game </p>
+        <p>2. watch and remember the pattern </p>
+        <p>3. click the buttons in the same order </p>
+        <p>4. make a mistake and get the 
+            <a href="https://x.com/JohnWRichKid" target="_blank" style="color: blue; text-decoration: underline;">John W.</a> BOOM
+        </p>
+            <button onclick="hideHint()">Got it!</button>
+    </div>
     <button class="secret-button" onclick="playBoom()">BOOM!</button>
     <h1>click..</h1>
     <div class="fidget-container">
@@ -356,7 +537,8 @@
 
     <a href="https://x.com/monadbull" target="_blank" class="x-link">
         <svg viewBox="0 0 24 24" width="24" height="24">
-            <path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            <path fill="currentColor"
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
         </svg>
     </a>
 
@@ -377,17 +559,17 @@
             const randomColor = colors[Math.floor(Math.random() * colors.length)];
             button.style.backgroundColor = randomColor;
             button.style.boxShadow = `0 0 20px ${randomColor}`;
-            
+
             const counterElement = document.getElementById('berry-count').parentElement;
             counterElement.style.backgroundColor = randomColor;
-            
+
             // Change text color based on background color
             if (randomColor === "#FBFAF9") {
                 counterElement.style.color = "#200052";
             } else {
                 counterElement.style.color = "#FFFFFF";
             }
-            
+
             updateCounter('berry');
         }
 
@@ -455,7 +637,7 @@
             const colors = ['#836EF9', '#200052', '#A0055D', '#FBFAF9'];
             const confetti = document.createElement('div');
             const size = Math.random() * 10 + 5;
-            
+
             // Randomly decide between color dot or logo
             if (Math.random() > 0.5) {
                 confetti.style.width = `${size}px`;
@@ -469,12 +651,12 @@
                 img.style.height = `${size}px`;
                 confetti.appendChild(img);
             }
-            
+
             confetti.style.position = 'fixed';
             confetti.style.left = `${Math.random() * 100}vw`;
             confetti.style.top = '-20px';
             confetti.style.zIndex = '1000';
-            
+
             return confetti;
         }
 
@@ -482,7 +664,7 @@
             for (let i = 0; i < 100; i++) {
                 const confetti = createConfetti();
                 document.body.appendChild(confetti);
-                
+
                 const animation = confetti.animate([
                     {
                         transform: `translate(0, 0) rotate(0deg)`,
@@ -496,7 +678,7 @@
                     duration: Math.random() * 2000 + 1500,
                     easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
                 });
-                
+
                 animation.onfinish = () => confetti.remove();
             }
             playClickSound5();
@@ -533,7 +715,7 @@
             const sound = document.getElementById('boomSound');
             sound.currentTime = 0; // Reset sound to start
             sound.play();
-            
+
             // Add a little animation when playing the sound
             const button = document.querySelector('.secret-button');
             button.style.transform = 'scale(1.2)';
@@ -546,9 +728,9 @@
             const sound = new Audio('soft.mp3');
             sound.volume = 0.3; // Optional: reduce volume since multiple sounds might play
             sound.play();
-            
+
             // Clean up the audio element after it finishes playing
-            sound.onended = function() {
+            sound.onended = function () {
                 sound.remove();
             };
         }
@@ -557,9 +739,9 @@
             const sound = new Audio('servant.mp3');
             sound.volume = 0.3; // Optional: reduce volume since multiple sounds might play
             sound.play();
-            
+
             // Clean up the audio element after it finishes playing
-            sound.onended = function() {
+            sound.onended = function () {
                 sound.remove();
             };
         }
@@ -568,9 +750,9 @@
             const sound = new Audio('ding.mp3');
             sound.volume = 0.3; // Optional: reduce volume since multiple sounds might play
             sound.play();
-            
+
             // Clean up the audio element after it finishes playing
-            sound.onended = function() {
+            sound.onended = function () {
                 sound.remove();
             };
         }
@@ -579,9 +761,9 @@
             const sound = new Audio('raver.mp3');
             sound.volume = 0.3; // Optional: reduce volume since multiple sounds might play
             sound.play();
-            
+
             // Clean up the audio element after it finishes playing
-            sound.onended = function() {
+            sound.onended = function () {
                 sound.remove();
             };
         }
@@ -590,29 +772,205 @@
             const sound = new Audio('pop.mp3');
             sound.volume = 0.3; // Optional: reduce volume since multiple sounds might play
             sound.play();
-            
+
             // Clean up the audio element after it finishes playing
-            sound.onended = function() {
+            sound.onended = function () {
                 sound.remove();
             };
         }
 
+        function showHint() {
+            document.querySelector('.hint-modal').classList.add('show');
+            document.querySelector('.modal-overlay').classList.add('show');
+        }
 
+        function hideHint() {
+            document.querySelector('.hint-modal').classList.remove('show');
+            document.querySelector('.modal-overlay').classList.remove('show');
+        }
 
     </script>
 
     <style>
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-10px);
+            }
+
+            75% {
+                transform: translateX(10px);
+            }
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
     </style>
+
+    <script>
+        let sequence = [];
+        let playerSequence = [];
+        let level = 1;
+        let isPlaying = false;
+        let canPlayerClick = false;
+
+        const buttons = document.querySelectorAll('.button');
+        const levelCounter = document.createElement('div');
+        levelCounter.id = "levelCounter";
+        document.body.appendChild(levelCounter);
+
+        function startGame() {
+            level = 1;
+            sequence = [];
+            playerSequence = [];
+            isPlaying = true;
+            levelCounter.textContent = `Level ${level}`;
+            setTimeout(() => {
+                nextLevel();
+            }, 500);
+        }
+
+        function nextLevel() {
+            playerSequence = [];
+            sequence.push(Math.floor(Math.random() * buttons.length));
+            levelCounter.textContent = `Level ${level}`;
+            setTimeout(() => {
+                playSequence();
+            }, 500);
+        }
+
+        function playSequence() {
+            canPlayerClick = false;
+            let i = 0;
+            const interval = setInterval(() => {
+                activateButton(buttons[sequence[i]], sequence[i]);
+                i++;
+                if (i >= sequence.length) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        canPlayerClick = true;
+                    }, 500);
+                }
+            }, 600);
+        }
+
+        function activateButton(button, index) {
+            button.classList.add('active');
+            playButtonSound(index);
+            
+            // Add specific animations based on the button
+            switch(index) {
+                case 0: // Purple button
+                    showConfetti();
+                    break;
+                case 1: // Berry button
+                    button.style.backgroundColor = "#A0055D";
+                    button.style.boxShadow = "0 0 20px #A0055D";
+                    break;
+                case 2: // Black button
+                    button.style.transform = "scale(2.0)";
+                    break;
+                case 3: // Teal button
+                    button.style.transform = "perspective(400px) rotateY(180deg)";
+                    break;
+                case 4: // Offwhite button
+                    document.body.style.backgroundColor = 
+                        document.body.style.backgroundColor === "rgb(14, 16, 15)" ? 
+                        "#FBFAF9" : "#0E100F";
+                    break;
+            }
+
+            setTimeout(() => {
+                button.classList.remove('active');
+                // Reset specific animations
+                switch(index) {
+                    case 1:
+                        button.style.backgroundColor = "";
+                        button.style.boxShadow = "";
+                        break;
+                    case 2:
+                    case 3:
+                        button.style.transform = "";
+                        break;
+                }
+            }, 500);
+        }
+
+        function playButtonSound(index) {
+            switch(index) {
+                case 0:
+                    playClickSound5(); // pop sound
+                    break;
+                case 1:
+                    playClickSound4(); // raver sound
+                    break;
+                case 2:
+                    playClickSound(); // soft sound
+                    break;
+                case 3:
+                    playClickSound2(); // servant sound
+                    break;
+                case 4:
+                    playClickSound3(); // ding sound
+                    break;
+            }
+        }
+
+        function buttonClicked(index) {
+            if (!isPlaying || !canPlayerClick) return;
+            
+            activateButton(buttons[index], index);
+            playerSequence.push(index);
+
+            if (playerSequence[playerSequence.length - 1] !== sequence[playerSequence.length - 1]) {
+                gameOver();
+                return;
+            }
+
+            if (playerSequence.length === sequence.length) {
+                canPlayerClick = false;
+                level++;
+                setTimeout(() => {
+                    nextLevel();
+                }, 1000);
+            }
+        }
+
+        function gameOver() {
+            isPlaying = false;
+            playBoom();
+            levelCounter.textContent = `Game Over! Score: ${level - 1}`;
+            startButton.textContent = "Play Again";
+            startButton.style.display = "block";
+        }
+
+        buttons.forEach((button, index) => {
+            button.addEventListener('click', () => buttonClicked(index));
+        });
+
+        const startButton = document.createElement('button');
+        startButton.id = "startButton";
+        startButton.textContent = "Start Game";
+        startButton.addEventListener('click', startGame);
+        document.body.appendChild(startButton);
+    </script>
+
 </body>
+
 </html>
